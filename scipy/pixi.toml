@@ -41,6 +41,9 @@ mypy = "1.10.*"
 typing_extensions = "*"
 types-psutil = "*"
 
+[feature.mxp.tasks]
+test-mxp = { cmd="python dev.py test -b marray.numpy -s stats", cwd="scipy" }
+
 [feature.bench.dependencies]
 asv = "*"
 
@@ -275,6 +278,7 @@ array-api = [
     "torch-base",
     "torch-cpu",
 ]
+mxp = ["array_api_strict", "mxp"]
 array-api-cuda = [
     "cuda",
     "array_api_strict",
