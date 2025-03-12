@@ -49,6 +49,9 @@ ruff = "*"
 pycodestyle = "*"
 cython-lint = ">=0.12.2"
 
+[feature.lint.pypi-dependencies]
+tach = "*"
+
 [feature.doc.dependencies]
 sphinx = ">=7.0,<8"
 intersphinx-registry = "*"
@@ -86,6 +89,7 @@ bench = { cmd = "python dev.py bench", cwd = "scipy" }
 
 [feature.lint.tasks]
 lint = { cmd = "python dev.py lint", cwd = "scipy" }
+tach = { cmd = "tach check --exact", cwd = "scipy" }
 
 [feature.doc.tasks]
 doc = { cmd = "python dev.py doc -j6", cwd = "scipy" }
@@ -253,7 +257,7 @@ ccache = ">=4.10.1,<5"
 
 [feature.openblas-src.pypi-dependencies]
 # In order to have no BLAS library in the conda env at all
-numpy = ">=2.2.0.rc0"  # hack, force install from PyPI
+numpy = ">=2.2.0.rc0" # hack, force install from PyPI
 pythran = ">=0.17.0"
 
 [feature.openblas-src.tasks]
