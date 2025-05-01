@@ -32,6 +32,8 @@ jobs:
           manifest-path: scipy/pixi.toml
           #cache: true
           #cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+      - name: Remove gfortran
+        run: sudo apt remove gfortran
       - name: Build SciPy
         working-directory: ./scipy
         run: pixi run wheel
