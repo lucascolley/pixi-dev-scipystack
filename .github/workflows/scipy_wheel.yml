@@ -1,4 +1,4 @@
-name: Linux SciPy
+name: Linux SciPy Wheel
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ permissions:
   contents: read # to fetch code (actions/checkout)
 
 jobs:
-  test:
+  wheel:
     # To enable this job and subsequent jobs on a fork, comment out:
     # if: github.repository == 'rgommers/pixi-dev-scipystack'
     runs-on: ubuntu-latest

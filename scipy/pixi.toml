@@ -7,7 +7,8 @@ channels = ["https://prefix.dev/conda-forge"]
 platforms = ["osx-arm64", "linux-64", "win-64"]
 
 [dependencies]
-compilers = ">=1.7.0,<2"
+c-compiler = "*"
+cxx-compiler = "*"
 pkg-config = ">=0.29.2,<0.30"
 ninja = ">=1.12.1,<2"
 meson = ">=1.5.1,<2"
@@ -34,6 +35,9 @@ mpmath = "*"
 gmpy2 = "*"
 ccache = ">=4.10.1,<5"
 spin = "*"
+
+[target.linux-64.dependencies]
+flang = "*"
 
 [feature.typing.dependencies]
 mypy = "1.10.*"
@@ -69,7 +73,7 @@ ipython = { cmd = "spin ipython", cwd = "scipy" }
 
 [feature.build.tasks]
 build = { cmd = "spin build -C-Dblas=blas -C-Dlapack=lapack -C-Duse-g77-abi=true", cwd = "scipy", env = { CC = "ccache $CC", CXX = "ccache $CXX", FC = "ccache $FC" } }
-wheel = { cmd = "python -m build -wnx -Cbuild-dir=build-whl && cp dist/*.whl ../../wheelhouse/", cwd = "scipy" }
+wheel = { cmd = "python -m build -wnx -Cbuild-dir=build-whl && cp -R dist/*.whl ../../wheelhouse/", cwd = "scipy" }
 profile-build = { cmd = "rm -rf build-profile && meson setup build-profile && ninja -C build-profile && python tools/ninjatracing.py build-profile/.ninja_log > build-profile/trace.json", cwd = "scipy" }
 check-missingdeps = { cmd = "ninja -C build -t missingdeps", depends-on = [
   "build",
@@ -261,10 +265,10 @@ threadpoolctl = "*"
 pooch = "*"
 ccache = ">=4.10.1,<5"
 
-[feature.openblas-src.pypi-dependencies]
-# In order to have no BLAS library in the conda env at all
-numpy = ">=2.2.0.rc0" # hack, force install from PyPI
-pythran = ">=0.17.0"
+# [feature.openblas-src.pypi-dependencies]
+# # In order to have no BLAS library in the conda env at all
+# numpy = ">=2.2.0.rc0" # hack, force install from PyPI
+# pythran = ">=0.17.0"
 
 [feature.openblas-src.tasks]
 build-openblas-src = { cmd = "spin build --build-dir build-openblas -C-Dblas=openblas-src -C-Dbuildtype=release", cwd = "scipy", env = { CC = "ccache $CC", CXX = "ccache $CXX", FC = "ccache $FC" } }
