@@ -82,8 +82,11 @@ cwd = "scipy"
 depends-on = "build"
 
 
-[feature.bench.dependencies]
+[feature.bench.pypi-dependencies]
 asv = "*"
+
+[feature.bench.dependencies]
+py-rattler = "*"
 
 [feature.bench.tasks.bench]
 cmd = "spin bench"
